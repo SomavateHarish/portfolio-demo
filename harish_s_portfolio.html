@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Harish Somavate — Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: #0f1724;
+      color: #e6eef6;
+    }
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      border-bottom: 3px solid #06b6d4;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 22px;
+      margin: 10px 0;
+    }
+    .card {
+      background: rgba(255,255,255,0.03);
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    .loader {
+      width: 100%;
+      text-align: center;
+      padding: 40px 0;
+      font-size: 16px;
+      color: #06b6d4;
+      letter-spacing: 0.5px;
+      animation: blink 1.4s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+  <iframe id="github-iframe" srcdoc="<div class='loader'>Loading Harshal Somavate’s Portfolio...</div>"></iframe>
+
+  <div class="container">
+    <h1>Harish Somavate — Portfolio</h1>
+    <p>This page dynamically loads <strong>Harshal Somavate's GitHub Portfolio</strong> above using the GitHub raw file API, followed by Harish's resume and achievements below.</p>
+
+    <div class="card">
+      <h2>About Harish</h2>
+      <p>
+        B.Tech (CSE) student at Bharati Vidyapeeth Deemed University, Pune (Graduating June 2025).
+        Focused on frontend development, UI/UX design, and AI-assisted creative tools. Passionate
+        about solving algorithmic challenges and crafting modern, responsive UIs.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Technical Skills</h2>
+      <ul>
+        <li>React.js, JavaScript (ES6+), HTML5, CSS3, Tailwind</li>
+        <li>Node.js, Flask, MongoDB, MySQL</li>
+        <li>REST API integration, Git/GitHub, Figma</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Projects</h2>
+      <ul>
+        <li><strong>AI Poster Generator</strong> — Next.js + Flask app for generating promotional banners using GANs.</li>
+        <li><strong>Agribuzz IoT Dashboard</strong> — React dashboard with chatbot and analytics visualization.</li>
+        <li><strong>Task Manager</strong> — Full-stack MERN CRUD task tracking system.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    async function loadPortfolio() {
+      const url = 'https://raw.githubusercontent.com/harshalsomavate/Harshal-portfolio/main/index.html';
+      const iframe = document.getElementById('github-iframe');
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const html = await response.text();
+
+        const blob = new Blob([html], { type: 'text/html' });
+        const blobUrl = URL.createObjectURL(blob);
+        iframe.src = blobUrl;
+      } catch (err) {
+        iframe.srcdoc = `<div style='color:red;text-align:center;padding:40px 0'>
+          ❌ Failed to load Harshal's portfolio.<br>${err.message}
+        </div>`;
+      }
+    }
+    loadPortfolio();
+  </script>
+</body>
+</html>
